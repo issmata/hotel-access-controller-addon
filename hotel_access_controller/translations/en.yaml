@@ -1,0 +1,24 @@
+configuration:
+  saas_base_url:
+    name: SaaS base URL
+    description: Staging Hotel Access SaaS URL without an API path.
+  controller_id:
+    name: Controller ID
+    description: Controller slug configured in Hotel Access SaaS.
+  controller_token:
+    name: Controller token
+    description: Bearer token assigned to this controller by Hotel Access SaaS.
+  polling_interval_seconds:
+    name: Polling interval
+    description: Seconds between checks for due controller commands.
+  heartbeat_interval_seconds:
+    name: Heartbeat interval
+    description: Seconds between authenticated controller check-ins.
+  request_timeout_seconds:
+    name: Request timeout
+    description: Timeout in seconds for SaaS and Home Assistant requests.
+  log_level:
+    name: Log level
+    description: Minimum structured log level written to the add-on log.
+network:
+  8099/tcp: Internal diagnostics endpoint
