@@ -18,4 +18,4 @@ The Home Assistant URL and token are supplied automatically through the Supervis
 
 The add-on starts `php /app/bin/service`. Generated configuration, command result cache, pending acknowledgements, service lock, and diagnostics state are stored under `/data` and survive add-on restarts and upgrades.
 
-The Supervisor watchdog checks the internal `/health` endpoint. Scheduling remains authoritative in SaaS. Future operations are not returned by the due-command endpoint until their `available_at` time.
+The image's native Docker health check checks the internal `/health` endpoint. Scheduling remains authoritative in SaaS. Future operations are not returned by the due-command endpoint until their `available_at` time.
