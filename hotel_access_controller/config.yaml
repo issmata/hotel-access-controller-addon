@@ -1,0 +1,31 @@
+name: Hotel Access Controller Development
+version: 0.1.0-dev.1
+slug: hotel_access_controller
+description: Development controller worker for Hotel Access SaaS and Home Assistant.
+url: https://github.com/issmata/hotel-access-controller-addon
+image: ghcr.io/issmata/hotel-access-controller-addon
+arch:
+  - amd64
+startup: application
+boot: auto
+init: false
+homeassistant_api: true
+ports:
+  8099/tcp: null
+watchdog: "http://[HOST]:[PORT:8099]/health"
+options:
+  saas_base_url: https://staging.saas.cameosuites.ca
+  controller_id: ""
+  controller_token: ""
+  polling_interval_seconds: 10
+  heartbeat_interval_seconds: 60
+  request_timeout_seconds: 15
+  log_level: info
+schema:
+  saas_base_url: url
+  controller_id: str
+  controller_token: password
+  polling_interval_seconds: int(1,300)
+  heartbeat_interval_seconds: int(10,3600)
+  request_timeout_seconds: int(1,120)
+  log_level: list(debug|info|warning|error)
