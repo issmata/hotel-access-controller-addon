@@ -6,13 +6,10 @@ url: https://github.com/issmata/hotel-access-controller-addon
 image: ghcr.io/issmata/hotel-access-controller-addon
 arch:
   - amd64
-startup: application
-boot: auto
 init: false
 homeassistant_api: true
 ports:
   8099/tcp: null
-watchdog: "http://[HOST]:[PORT:8099]/health"
 options:
   saas_base_url: https://staging.saas.cameosuites.ca
   controller_id: ""
