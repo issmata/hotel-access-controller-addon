@@ -1,5 +1,5 @@
 name: Hotel Access Controller Development
-version: 0.1.0-dev.4
+version: 0.1.0-dev.5
 slug: hotel_access_controller
 description: Development controller worker for Hotel Access SaaS and Home Assistant.
 url: https://github.com/issmata/hotel-access-controller-addon
@@ -9,6 +9,9 @@ arch:
 init: false
 homeassistant_api: true
 hassio_api: true
+ingress: true
+panel_icon: mdi:shield-lock-outline
+panel_title: Offline Cache
 ports:
   8099/tcp: null
 options:

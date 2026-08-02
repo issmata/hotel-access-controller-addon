@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0-dev.5
+
+- Add an administrator-only Home Assistant ingress page for inspecting the offline cache.
+- Display redacted operation, lock, schedule, state, and opaque reference details without exposing PINs or secrets.
+- Keep the health endpoint minimal while retaining full secret-free JSON diagnostics separately.
+
 ## 0.1.0-dev.4
 
 - Bundle version-matched public catalog metadata inside the verified container image.
