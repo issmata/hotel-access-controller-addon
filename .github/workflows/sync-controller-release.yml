@@ -1,0 +1,74 @@
+name: Sync verified Controller release
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/sync-controller-release.yml
+
+concurrency:
+  group: sync-controller-release
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  packages: read
+
+jobs:
+  sync:
+    name: Pull, validate, and publish catalog metadata
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out public catalog
+        uses: actions/checkout@v5
+
+      - name: Pull verified Controller image
+        run: docker pull ghcr.io/issmata/hotel-access-controller-addon:develop
+
+      - name: Extract release catalog
+        id: release
+        shell: bash
+        run: |
+          image='ghcr.io/issmata/hotel-access-controller-addon:develop'
+          image_version="$(docker image inspect --format '{{ index .Config.Labels "org.opencontainers.image.version" }}' "${image}")"
+          container="$(docker create "${image}")"
+          trap 'docker rm -f "${container}" >/dev/null 2>&1 || true' EXIT
+          staging="$(mktemp -d)"
+          docker cp "${container}:/opt/hotel-access-addon/catalog/." "${staging}/"
+          manifest_version="$(awk '$1 == "version:" { print $2; exit }' "${staging}/config.yaml")"
+
+          if [[ -z "${image_version}" || "${manifest_version}" != "${image_version}" ]]; then
+            echo "Image version [${image_version}] does not match manifest [${manifest_version}]." >&2
+            exit 1
+          fi
+
+          cp "${staging}/config.yaml" hotel_access_controller/config.yaml
+          cp "${staging}/CHANGELOG.md" hotel_access_controller/CHANGELOG.md
+          cp "${staging}/DOCS.md" hotel_access_controller/DOCS.md
+          cp "${staging}/README.md" hotel_access_controller/README.md
+          cp "${staging}/translations/en.yaml" hotel_access_controller/translations/en.yaml
+          echo "version=${manifest_version}" >> "${GITHUB_OUTPUT}"
+
+      - name: Validate extracted add-on configuration
+        uses: frenck/action-addon-linter@v2
+        with:
+          path: ./hotel_access_controller
+
+      - name: Publish changed catalog metadata
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "Catalog already publishes ${VERSION}."
+            exit 0
+          fi
+          git config user.name 'hotel-access-release-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add hotel_access_controller
+          git commit -m "Publish Controller add-on ${VERSION}"
+          git push origin main
