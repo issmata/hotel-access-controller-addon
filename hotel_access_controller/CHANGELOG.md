@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-dev.4
+
+- Bundle version-matched public catalog metadata inside the verified container image.
+- Support credential-free pull-based catalog publication from the public add-on repository.
+
 ## 0.1.0-dev.3
 
 - Enroll the Controller add-on in Home Assistant automatic updates during startup.
