@@ -14,6 +14,12 @@ This development add-on runs the existing Hotel Access Controller worker continu
 
 The Home Assistant URL and token are supplied automatically through the Supervisor API proxy. Do not create a Home Assistant long-lived token for this add-on.
 
+## Automatic updates
+
+Starting with `0.1.0-dev.3`, the add-on uses the Supervisor's self-scoped API to enable automatic updates for itself at startup. It requests the default Supervisor role, cannot manage other add-ons, and does not receive host, Docker, or store-management access. Installed version, latest known version, update availability, and automatic-update state are sent to SaaS as secret-free controller check-in telemetry.
+
+An installation older than `0.1.0-dev.3` cannot enable this behavior retroactively. Update it to `0.1.0-dev.3` once through the Home Assistant update action or an operator-assisted installation. Later catalog releases are installed by Supervisor automatically after Home Assistant discovers them. SaaS raises an alert if an update is pending or automatic updates become disabled.
+
 ## Operation
 
 The add-on starts `php /app/bin/service`. Generated configuration, command result cache, pending acknowledgements, service lock, diagnostics state, the encrypted offline manifest, and its encrypted execution journal are stored under `/data` and survive add-on and HAOS restarts.

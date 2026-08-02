@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0-dev.3
+
+- Enroll the Controller add-on in Home Assistant automatic updates during startup.
+- Report installed, latest, available, and automatic-update state to SaaS without exposing Supervisor credentials.
+- Use the add-on manifest as the authoritative runtime version.
+- Publish catalog metadata only after the matching public GHCR image is verified.
+
 ## 0.1.0-dev.2
 
 - Cache signed SaaS-authorized future access operations for local outage execution.

@@ -13,4 +13,4 @@ Public Home Assistant add-on repository for the Hotel Access Controller developm
 
 The controller application source remains in its private development repository. This repository contains only the Home Assistant add-on catalog metadata and documentation.
 
-Release `0.1.0-dev.2` packages encrypted offline scheduling and durable reconciliation. Upgrade only after the matching Controller image tag has been published by the runtime repository workflow.
+Release `0.1.0-dev.3` enables self-scoped Supervisor automatic updates and SaaS update-health reporting in addition to encrypted offline scheduling. Installations on an older release need one update to `0.1.0-dev.3`; future verified catalog releases install automatically. Catalog metadata is published only after the matching Controller image is publicly pullable.
