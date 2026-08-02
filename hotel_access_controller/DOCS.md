@@ -16,6 +16,12 @@ The Home Assistant URL and token are supplied automatically through the Supervis
 
 ## Operation
 
-The add-on starts `php /app/bin/service`. Generated configuration, command result cache, pending acknowledgements, service lock, and diagnostics state are stored under `/data` and survive add-on restarts and upgrades.
+The add-on starts `php /app/bin/service`. Generated configuration, command result cache, pending acknowledgements, service lock, diagnostics state, the encrypted offline manifest, and its encrypted execution journal are stored under `/data` and survive add-on and HAOS restarts.
 
-The image's native Docker health check checks the internal `/health` endpoint. Scheduling remains authoritative in SaaS. Future operations are not returned by the due-command endpoint until their `available_at` time.
+The offline schedule follows the PMS future-booking window configured in SaaS. It is not a separate add-on option. While SaaS is unreachable, the Controller executes only signed operations already authorized in that manifest at their explicit UTC times. It does not store complete bookings or guest identity, contact, payment, or photo-ID data.
+
+After reconnecting, unreported offline journal entries are uploaded before ordinary command polling. SaaS acknowledges reconciliation and explicitly supersedes stale local operations. Diagnostics expose counts, revision, validity, and cache health only; cached PINs never appear there.
+
+The image's native Docker health check checks the internal `/health` endpoint. The same endpoint exposes secret-free runtime diagnostics inside the container, including SaaS reachability, authentication, Home Assistant reachability, polling and heartbeat state, pending acknowledgements, the last command, and the last successful PIN verification.
+
+Scheduling remains authoritative in SaaS. Future operations are not returned by the due-command endpoint until their `available_at` time.

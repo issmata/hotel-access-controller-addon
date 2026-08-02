@@ -12,3 +12,5 @@ Public Home Assistant add-on repository for the Hotel Access Controller developm
 5. Start the app and enable **Start on boot** and **Watchdog**.
 
 The controller application source remains in its private development repository. This repository contains only the Home Assistant add-on catalog metadata and documentation.
+
+Release `0.1.0-dev.2` packages encrypted offline scheduling and durable reconciliation. Upgrade only after the matching Controller image tag has been published by the runtime repository workflow.
