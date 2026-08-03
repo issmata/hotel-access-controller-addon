@@ -21,4 +21,4 @@ configuration:
     name: Log level
     description: Minimum structured log level written to the add-on log.
 network:
-  8099/tcp: Internal diagnostics endpoint
+  8099/tcp: Internal Device Setup, diagnostics, and health endpoint

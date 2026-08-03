@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-dev.6
+
+- Add an administrator-only Device Setup ingress wizard for Z-Wave locks and extenders.
+- Require explicit security and device-history choices, including mandatory exclusion for used or uncertain devices.
+- Monitor inclusion, security prompts, interview and bounded re-interview through Home Assistant Z-Wave JS WebSocket APIs.
+- Verify Hotel Access lock capabilities with a temporary in-memory PIN and verified cleanup before commissioning.
+- Persist only redacted, non-secret commissioning state and upload successfully commissioned locks to discovered-lock mapping.
+- Preserve Offline Cache diagnostics as a separate ingress view.
+
 ## 0.1.0-dev.5
 
 - Add an administrator-only Home Assistant ingress page for inspecting the offline cache.

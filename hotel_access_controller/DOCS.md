@@ -22,13 +22,15 @@ An installation older than `0.1.0-dev.3` cannot enable this behavior retroactive
 
 ## Operation
 
-The add-on starts `php /app/bin/service`. Generated configuration, command result cache, pending acknowledgements, service lock, diagnostics state, the encrypted offline manifest, and its encrypted execution journal are stored under `/data` and survive add-on and HAOS restarts.
+The add-on starts `php /app/bin/service` and the independent `php /app/bin/commissioning-worker`. Generated configuration, command result cache, pending acknowledgements, service lock, diagnostics state, redacted commissioning state, the encrypted offline manifest, and its encrypted execution journal are stored under `/data` and survive add-on and HAOS restarts.
 
 The offline schedule follows the PMS future-booking window configured in SaaS. It is not a separate add-on option. While SaaS is unreachable, the Controller executes only signed operations already authorized in that manifest at their explicit UTC times. It does not store complete bookings or guest identity, contact, payment, or photo-ID data.
 
 After reconnecting, unreported offline journal entries are uploaded before ordinary command polling. SaaS acknowledges reconciliation and explicitly supersedes stale local operations.
 
-Select **Open Web UI** on the add-on to inspect its **Offline Cache** page. The administrator-only page shows cache health and redacted operation details including the lock, action, UTC execution time, state, slot, command ID, opaque booking/credential references, dependencies, and whether encrypted PIN material is present. Cached PIN values, signatures, tokens, and guest identity never appear. The page refreshes every 15 seconds and remains available when SaaS is unreachable.
+Select **Open Web UI** on the add-on to open **Device Setup**. The administrator-only wizard commissions Z-Wave locks and extenders with explicit security and history choices, live progress, safe security prompts, capability checks, and friendly naming. Previously used or uncertain devices must complete exclusion before inclusion. A lock is uploaded to discovered-lock mapping only after verification and temporary-PIN cleanup succeed.
+
+The **Offline Cache** tab shows cache health and redacted operation details including the lock, action, UTC execution time, state, slot, command ID, opaque booking/credential references, dependencies, and whether encrypted PIN material is present. Cached PIN values, DSK values, security keys, signatures, tokens, test PINs, and guest identity never appear.
 
 The image's native Docker health check uses the minimal internal `/health` endpoint. Secret-free JSON diagnostics remain available separately at `/diagnostics` inside the container.
 
