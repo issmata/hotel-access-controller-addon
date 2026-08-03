@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.0-dev.8
+
+- Present device type, security mode, and device history as sequential setup screens.
+- Ensure inactive wizard controls remain hidden throughout commissioning.
+- Make cancellation durable and prevent queued work from restarting a cancelled session.
+- Use the supplied Locstar Z-Wave lock product photo in Device Setup.
+
+## 0.1.0-dev.7
+
+- Remove the unsupported `exclusion_strategy` field from `zwave_js/remove_node`.
+- Match the exclusion command schema used by the installed Home Assistant Z-Wave JS integration.
+
 ## 0.1.0-dev.6
 
 - Add an administrator-only Device Setup ingress wizard for Z-Wave locks and extenders.
