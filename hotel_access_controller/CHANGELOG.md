@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-dev.9
+
+- Reset terminal commissioning state on the Controller before opening a new Device Setup wizard.
+- Prevent the status poll from restoring a cancelled session after selecting another device.
+
 ## 0.1.0-dev.8
 
 - Present device type, security mode, and device history as sequential setup screens.
