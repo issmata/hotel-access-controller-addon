@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-dev.10
+
+- Use the configured add-on version for ingress asset cache busting.
+- Remove source-tree asset path assumptions that caused `filemtime` warnings in the packaged container.
+
 ## 0.1.0-dev.9
 
 - Reset terminal commissioning state on the Controller before opening a new Device Setup wizard.
