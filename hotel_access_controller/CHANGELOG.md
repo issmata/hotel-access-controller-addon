@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-dev.11
+
+- Open Device Setup at the welcome step after a completed cancellation.
+- Keep the cancelled screen only while physical Home Assistant cleanup is still pending.
+
 ## 0.1.0-dev.10
 
 - Use the configured add-on version for ingress asset cache busting.
