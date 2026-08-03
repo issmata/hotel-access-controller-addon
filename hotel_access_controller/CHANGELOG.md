@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-dev.13
+
+- Allow a valid legacy Controller ID/token pair to take over from empty factory standby state.
+- Retain explicit reset protection and active provisioning-bundle precedence.
+
 ## 0.1.0-dev.12
 
 - Add secure ES256 factory provisioning and local P-256 recipient keys.
