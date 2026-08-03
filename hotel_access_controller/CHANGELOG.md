@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0-dev.12
+
+- Add secure ES256 factory provisioning and local P-256 recipient keys.
+- Add authenticated phone-home, adoption polling, compact JWE credential delivery, persistence, verification, and acknowledgement.
+- Start healthily with empty Controller identity while preserving legacy Cameo configuration unchanged.
+- Add redacted bootstrap status and provisioning-bundle import to administrator-only ingress.
+
 ## 0.1.0-dev.11
 
 - Open Device Setup at the welcome step after a completed cancellation.

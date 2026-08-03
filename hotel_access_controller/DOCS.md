@@ -5,14 +5,26 @@ This development add-on runs the existing Hotel Access Controller worker continu
 ## Configuration
 
 - `saas_base_url`: staging SaaS URL, without a trailing API path.
-- `controller_id`: controller slug configured in SaaS.
-- `controller_token`: controller agent bearer token from SaaS.
+- `controller_id`: optional legacy Controller slug. Keep the existing value on
+  an upgraded manually configured installation.
+- `controller_token`: optional legacy agent bearer token. Keep the existing
+  value paired with `controller_id`; never copy a real token into an image.
+- `provisioning_signing_jwks`: public ES256 provisioning signing JWK set
+  supplied by platform operations. It must contain no private key parameter.
 - `polling_interval_seconds`: queue polling cadence; defaults to 10 seconds.
 - `heartbeat_interval_seconds`: controller check-in cadence; defaults to 60 seconds.
 - `request_timeout_seconds`: outbound request timeout.
 - `log_level`: `debug`, `info`, `warning`, or `error`.
 
 The Home Assistant URL and token are supplied automatically through the Supervisor API proxy. Do not create a Home Assistant long-lived token for this add-on.
+
+An add-on with empty Controller identity starts in `factory_unprovisioned`
+standby. Open **Controller** in ingress to import a signed provisioning bundle.
+It then reports `online_unclaimed` until SaaS adopts it and delivers permanent
+credentials, after which it reports `claimed`. SaaS is the only component that
+creates the permanent token. Bootstrap state and credentials are encrypted
+under `/data/bootstrap` and survive restart. Identity reset does not reset the
+Z-Wave network.
 
 ## Automatic updates
 
@@ -33,5 +45,9 @@ Select **Open Web UI** on the add-on to open **Device Setup**. The administrator
 The **Offline Cache** tab shows cache health and redacted operation details including the lock, action, UTC execution time, state, slot, command ID, opaque booking/credential references, dependencies, and whether encrypted PIN material is present. Cached PIN values, DSK values, security keys, signatures, tokens, test PINs, and guest identity never appear.
 
 The image's native Docker health check uses the minimal internal `/health` endpoint. Secret-free JSON diagnostics remain available separately at `/diagnostics` inside the container.
+
+Home Assistant's default automatic boot policy is used. The obsolete manifest
+`watchdog` setting is intentionally omitted because the image supplies its own
+native Docker `HEALTHCHECK` against `/health`.
 
 Scheduling remains authoritative in SaaS. Future operations are not returned by the due-command endpoint until their `available_at` time.
