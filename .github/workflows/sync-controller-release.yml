@@ -29,6 +29,12 @@ jobs:
       - name: Pull verified Controller image
         run: docker pull ghcr.io/issmata/hotel-access-controller-addon:develop
 
+      - name: Verify packaged provisioning trust
+        run: |
+          docker run --rm --entrypoint php \
+            ghcr.io/issmata/hotel-access-controller-addon:develop \
+            /app/bin/validate-trust-artifact
+
       - name: Extract release catalog
         id: release
         shell: bash
