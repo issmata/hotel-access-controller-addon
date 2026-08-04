@@ -50,6 +50,9 @@ Select **Open Web UI** on the add-on to open **Device Setup**. The administrator
 
 The **Offline Cache** tab shows cache health and redacted operation details including the lock, action, UTC execution time, state, slot, command ID, opaque booking/credential references, dependencies, and whether encrypted PIN material is present. Cached PIN values, DSK values, security keys, signatures, tokens, test PINs, and guest identity never appear.
 
+The Controller, Device Setup, and Offline Cache tabs remain available from every
+ingress page and are rooted beneath Home Assistant's active ingress URL.
+
 The image's native Docker health check uses the minimal internal `/health` endpoint. Secret-free JSON diagnostics remain available separately at `/diagnostics` inside the container.
 
 Home Assistant's default automatic boot policy is used. The obsolete manifest

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-dev.15
+
+- Keep Controller, Device Setup, and Offline Cache navigation visible on the Offline Cache page.
+- Root all Offline Cache links safely beneath the active Home Assistant ingress path.
+
 ## 0.1.0-dev.14
 
 - Package the reviewed staging provisioning trust artifact at `/app/config/trusted-provisioning-jwks.json` and remove editable Home Assistant JWKS configuration.
