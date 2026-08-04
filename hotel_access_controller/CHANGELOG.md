@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0-dev.14
+
+- Package the reviewed staging provisioning trust artifact at `/app/config/trusted-provisioning-jwks.json` and remove editable Home Assistant JWKS configuration.
+- Pin environment, issuer, active kid, ES256/P-256 profile, validity windows, and canonical artifact hash; reject private, duplicate, unknown, malformed, or out-of-window keys.
+- Add visual provisioning-bundle selection, safe metadata review, durable preparation progress, trusted-key status, and sanitized failures in administrator ingress.
+- Verify the exact trust bytes inside the built image before GHCR publication while preserving existing Cameo credentials unchanged.
+
 ## 0.1.0-dev.13
 
 - Allow a valid legacy Controller ID/token pair to take over from empty factory standby state.

@@ -9,8 +9,6 @@ This development add-on runs the existing Hotel Access Controller worker continu
   an upgraded manually configured installation.
 - `controller_token`: optional legacy agent bearer token. Keep the existing
   value paired with `controller_id`; never copy a real token into an image.
-- `provisioning_signing_jwks`: public ES256 provisioning signing JWK set
-  supplied by platform operations. It must contain no private key parameter.
 - `polling_interval_seconds`: queue polling cadence; defaults to 10 seconds.
 - `heartbeat_interval_seconds`: controller check-in cadence; defaults to 60 seconds.
 - `request_timeout_seconds`: outbound request timeout.
@@ -25,6 +23,14 @@ credentials, after which it reports `claimed`. SaaS is the only component that
 creates the permanent token. Bootstrap state and credentials are encrypted
 under `/data/bootstrap` and survive restart. Identity reset does not reset the
 Z-Wave network.
+
+The official staging provisioning trust is packaged read-only at
+`/app/config/trusted-provisioning-jwks.json`. Home Assistant has no editable
+JWKS option. Ingress reports whether that artifact is valid and provides the
+visual sequence from bundle selection through signature validation, appliance
+identity generation, public-key registration, phone-home, and
+`online_unclaimed`. Unknown keys, private material, wrong environments, and
+unsupported cryptographic profiles are rejected without displaying secrets.
 
 ## Automatic updates
 

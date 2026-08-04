@@ -1,5 +1,5 @@
 name: Hotel Access Controller Development
-version: 0.1.0-dev.13
+version: 0.1.0-dev.14
 slug: hotel_access_controller
 description: Development controller worker for Hotel Access SaaS and Home Assistant.
 url: https://github.com/issmata/hotel-access-controller-addon
@@ -18,7 +18,6 @@ options:
   saas_base_url: https://staging.saas.cameosuites.ca
   controller_id: ""
   controller_token: ""
-  provisioning_signing_jwks: '{"keys":[]}'
   polling_interval_seconds: 10
   heartbeat_interval_seconds: 60
   request_timeout_seconds: 15
@@ -27,7 +26,6 @@ schema:
   saas_base_url: url
   controller_id: str?
   controller_token: password?
-  provisioning_signing_jwks: str
   polling_interval_seconds: int(1,300)
   heartbeat_interval_seconds: int(10,3600)
   request_timeout_seconds: int(1,120)
