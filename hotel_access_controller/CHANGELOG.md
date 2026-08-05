@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0-dev.16
+
+- Execute SaaS-native lock inclusion and exclusion through the existing durable commissioning engine.
+- Relay restart-safe progress, cancellation, timeout, DSK confirmation, and explicit S2 grant prompts over the outbound Controller API.
+- Advertise `commissioning.saas_native.v1` only when the complete command, persistence, prompt, event, and result bridge is available.
+- Continue draining prioritized SaaS commands immediately while a bounded batch remains full.
+
 ## 0.1.0-dev.15
 
 - Keep Controller, Device Setup, and Offline Cache navigation visible on the Offline Cache page.

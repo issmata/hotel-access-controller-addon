@@ -48,6 +48,13 @@ After reconnecting, unreported offline journal entries are uploaded before ordin
 
 Select **Open Web UI** on the add-on to open **Device Setup**. The administrator-only wizard commissions Z-Wave locks and extenders with explicit security and history choices, live progress, safe security prompts, capability checks, and friendly naming. Previously used or uncertain devices must complete exclusion before inclusion. A lock is uploaded to discovered-lock mapping only after verification and temporary-PIN cleanup succeed.
 
+Hotel-facing lock setup is performed in SaaS. Release `0.1.0-dev.16` exposes
+that flow through outbound-polled commissioning commands while reusing this
+same commissioning service and worker. The local Device Setup page remains an
+administrator-only factory and support tool; hotel users never need Home
+Assistant, ingress, add-on settings, Controller credentials, or local network
+access.
+
 The **Offline Cache** tab shows cache health and redacted operation details including the lock, action, UTC execution time, state, slot, command ID, opaque booking/credential references, dependencies, and whether encrypted PIN material is present. Cached PIN values, DSK values, security keys, signatures, tokens, test PINs, and guest identity never appear.
 
 The Controller, Device Setup, and Offline Cache tabs remain available from every
