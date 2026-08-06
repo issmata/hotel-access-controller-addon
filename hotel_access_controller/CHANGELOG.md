@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-dev.18
+
+- Fix Home Assistant Z-Wave inclusion by omitting `force_security` when an explicit inclusion strategy is selected.
+- Send S2 security approval fields using Home Assistant's required `securityClasses` and `clientSideAuth` names.
+
 ## 0.1.0-dev.17
 
 - Route SaaS-issued Z-Wave extender inclusion and exclusion through the existing durable Device Setup commissioning engine.
