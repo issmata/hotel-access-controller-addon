@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0-dev.17
+
+- Route SaaS-issued Z-Wave extender inclusion and exclusion through the existing durable Device Setup commissioning engine.
+- Report sanitized routing verification, opaque extender identity, readiness, health, and completion summaries without exposing local platform or node identifiers.
+- Advertise `commissioning.extender.v1` alongside `commissioning.saas_native.v1` only in the package that supports the complete retry, restart, routing, and exclusion flow.
+
 ## 0.1.0-dev.16
 
 - Execute SaaS-native lock inclusion and exclusion through the existing durable commissioning engine.
