@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-dev.31
+
+- Keep Home Assistant's explicit `interview completed` event as the primary
+  transition to naming.
+- Recover when Home Assistant omits that event only after the included node has
+  a matching registered device and reports ready status three times in a row.
+- Record whether interview completion came from the event stream or the bounded
+  stable-readiness fallback for commissioning diagnostics.
+
 ## 0.1.0-dev.30
 
 - Keep the Home Assistant `zwave_js/add_node` event subscription open through

@@ -48,15 +48,18 @@ After reconnecting, unreported offline journal entries are uploaded before ordin
 
 Select **Open Web UI** on the add-on to open **Device Setup**. The administrator-only wizard commissions Z-Wave locks and extenders with explicit security and history choices, live progress, safe security prompts, capability checks, and friendly naming. Previously used or uncertain devices must complete exclusion before inclusion. A lock is uploaded to discovered-lock mapping only after verification and temporary-PIN cleanup succeed.
 
-Hotel-facing Device Setup is performed in SaaS. Release `0.1.0-dev.30` exposes
+Hotel-facing Device Setup is performed in SaaS. Release `0.1.0-dev.31` exposes
 door lock, Z-Wave extender, and device exclusion flows through outbound-polled
 commissioning commands while reusing this same commissioning service and
 worker. The naming form appears only after Home Assistant emits `interview
 completed`; an earlier device-registry event does not end inclusion. A newly
-included lock receives a bounded one-minute Home Assistant registration
-grace period, and a completed lock interview is not repeated solely because
-its entity has not appeared yet. Lock verification does not use priority-route
-retrieval as its completion gate; routing verification remains specific to
+included node may use a bounded fallback when Home Assistant omits that event,
+but only after its matching device-registry record exists and it reports ready
+status three times consecutively. The completion source is retained in local
+diagnostics. A newly included lock receives a bounded one-minute Home Assistant
+registration grace period, and a completed lock interview is not repeated
+solely because its entity has not appeared yet. Lock verification does not use
+priority-route retrieval as its completion gate; routing verification remains specific to
 extenders. Before inclusion, the Controller configures the internal Z-Wave JS
 driver to query existing user codes during the complete interview instead of
 clearing them. It then scans occupied slots without writing them and reserves
@@ -71,14 +74,15 @@ Priority-route retrieval is not part of lock inclusion, the complete device
 interview, User Code CC discovery, or user-code verification. Z-Wave JS UI may
 log that it is retrieving a priority route after a node becomes ready without
 logging a matching success line. Hotel Access neither requests nor waits for
-that optional route. Device registration immediately ends the blocking Home
-Assistant inclusion subscription and publishes a naming step in SaaS. The name
-is returned through the authenticated command queue and applied by the existing
-Controller naming/finalization engine before readiness and PIN verification.
+that optional route. The completed interview, or the bounded registered-and-
+stably-ready fallback when Home Assistant omits its completion event, ends the
+blocking inclusion subscription and publishes the naming step in SaaS. The
+name is returned through the authenticated command queue and applied by the
+existing Controller naming/finalization engine before readiness and PIN
+verification.
 The Z-Wave JS UI name-and-area dialog is a frontend convenience and is not a
-server-side inclusion response. When registration events are delayed, a bounded
-controller-node readiness fallback remains available without resetting the
-Serial API. Progress and result delivery are durable but never block command
+server-side inclusion response. A ready node alone never opens naming or resets
+the Serial API. Progress and result delivery are durable but never block command
 polling, so naming and cancellation remain executable while acknowledgements
 are retried.
 Occupied slots are never written.
