@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-dev.22
+
+- Treat priority-route retrieval as optional and unrelated to lock inclusion, interview completion, and user-code verification.
+- Detect an interview-ready lock when the Home Assistant inclusion event stream is blocked after node readiness.
+- Recover the Z-Wave Serial API before user-code slot discovery without repeating the completed interview.
+- Retry user-code verification once after recovery when the completed interview event arrived before the route request blocked the queue.
+- Preserve occupied user-code slots throughout recovery and temporary-PIN verification.
+
 ## 0.1.0-dev.21
 
 - Configure the Z-Wave JS driver to query existing user codes instead of clearing them during the initial interview.
