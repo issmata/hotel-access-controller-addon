@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0-dev.19
+
+- Wait for Home Assistant to expose a newly included lock entity before capability verification.
+- Do not trigger a second full lock interview after Home Assistant already confirmed the first interview complete.
+- Prevent slow battery-lock user-code scans from turning successful inclusion into a false timeout.
+
 ## 0.1.0-dev.18
 
 - Fix Home Assistant Z-Wave inclusion by omitting `force_security` when an explicit inclusion strategy is selected.
