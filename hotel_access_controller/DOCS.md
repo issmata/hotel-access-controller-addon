@@ -48,10 +48,10 @@ After reconnecting, unreported offline journal entries are uploaded before ordin
 
 Select **Open Web UI** on the add-on to open **Device Setup**. The administrator-only wizard commissions Z-Wave locks and extenders with explicit security and history choices, live progress, safe security prompts, capability checks, and friendly naming. Previously used or uncertain devices must complete exclusion before inclusion. A lock is uploaded to discovered-lock mapping only after verification and temporary-PIN cleanup succeed.
 
-Hotel-facing Device Setup is performed in SaaS. Release `0.1.0-dev.19` exposes
+Hotel-facing Device Setup is performed in SaaS. Release `0.1.0-dev.20` exposes
 door lock, Z-Wave extender, and device exclusion flows through outbound-polled
 commissioning commands while reusing this same commissioning service and
-worker. A newly included lock receives a bounded Home Assistant registration
+worker. A newly included lock receives a bounded one-minute Home Assistant registration
 grace period, and a completed lock interview is not repeated solely because
 its entity has not appeared yet. Extender progress reports plain-language routing verification and only
 a bounded opaque completion identity. The local Device Setup page remains an

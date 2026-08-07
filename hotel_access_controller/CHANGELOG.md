@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-dev.20
+
+- Allow Home Assistant up to one minute to publish a newly interviewed lock entity before capability verification fails.
+- Keep the successfully included node in the same commissioning run while Home Assistant completes asynchronous registration.
+
 ## 0.1.0-dev.19
 
 - Wait for Home Assistant to expose a newly included lock entity before capability verification.
