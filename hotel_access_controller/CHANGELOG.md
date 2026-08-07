@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0-dev.25
+
+- Use Home Assistant's controller-node readiness as the bounded fallback when registration and interview-completed events are delayed.
+- End the inclusion subscription without resetting the Serial API, resolve the registered device, and proceed to naming before lock-entity verification.
+- Preserve the direct cancellation and documented `device.id` handling introduced in dev.24.
+
 ## 0.1.0-dev.24
 
 - Read the Home Assistant device registry identifier from the documented `device registered` event field and advance a ready device to the Hotel Access naming step.
