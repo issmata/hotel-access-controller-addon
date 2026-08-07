@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-dev.30
+
+- Keep the Home Assistant `zwave_js/add_node` event subscription open through
+  the explicit `interview completed` event before asking SaaS for a name.
+- Preserve the working SaaS-to-Home Assistant friendly-name update while
+  preventing premature lock-entity and temporary-PIN verification.
+- Acknowledge operator cancellation immediately and let event-stream cleanup
+  finish independently of the SaaS UI.
+
 ## 0.1.0-dev.29
 
 - End the blocking Home Assistant inclusion subscription as soon as the
