@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0-dev.21
+
+- Configure the Z-Wave JS driver to query existing user codes instead of clearing them during the initial interview.
+- Require an interview-ready node and usable Home Assistant lock entity before testing and cleaning the temporary PIN.
+- Scan occupied slots without modifying them and use only the first verified empty slot for the temporary PIN test.
+- Keep routing-readiness verification for Z-Wave extenders.
+
 ## 0.1.0-dev.20
 
 - Allow Home Assistant up to one minute to publish a newly interviewed lock entity before capability verification fails.
