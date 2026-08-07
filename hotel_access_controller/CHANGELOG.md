@@ -1,18 +1,28 @@
 # Changelog
 
+## 0.1.0-dev.29
+
+- End the blocking Home Assistant inclusion subscription as soon as the
+  physical device is registered, matching Home Assistant's naming boundary.
+- Publish `naming_required`, accept `commissioning_submit_name`, and apply the
+  hotel-facing name through the existing naming and verification engine.
+- Keep interactive command polling active when an older result acknowledgement
+  is unavailable, and acknowledge late cancellation/timeout commands cleanly.
+
 ## 0.1.0-dev.28
 
-- Wait for a newly included lock to remain ready through a 20-second settling
-  window before temporary PIN verification begins.
-- Pace temporary PIN set and cleanup operations, and retry a late user-code
-  service once without resetting the Z-Wave Serial API.
+- Require a newly included lock to remain Home Assistant-ready through a
+  20-second stabilization window before any temporary PIN is written.
+- Pace temporary PIN set verification, cleanup, and cleanup verification so a
+  battery lock can finish each mutation before receiving the next operation.
+- Retry a late user-code service through one additional stabilization window
+  without resetting the Z-Wave Serial API.
 
 ## 0.1.0-dev.27
 
-- Follow Home Assistant's classic-inclusion lifecycle by stopping inclusion
-  after interview readiness and before the separate friendly-name step.
-- Allow up to 30 seconds for delayed Home Assistant device registration.
-- Retain the cancellation polling independence delivered in dev.26.
+- Mirror Home Assistant's supported classic-inclusion finish sequence by
+  stopping inclusion after interview readiness and before device naming.
+- Allow a bounded 30-second Home Assistant device-registry convergence window.
 
 ## 0.1.0-dev.26
 
