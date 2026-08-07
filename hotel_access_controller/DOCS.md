@@ -48,7 +48,7 @@ After reconnecting, unreported offline journal entries are uploaded before ordin
 
 Select **Open Web UI** on the add-on to open **Device Setup**. The administrator-only wizard commissions Z-Wave locks and extenders with explicit security and history choices, live progress, safe security prompts, capability checks, and friendly naming. Previously used or uncertain devices must complete exclusion before inclusion. A lock is uploaded to discovered-lock mapping only after verification and temporary-PIN cleanup succeed.
 
-Hotel-facing Device Setup is performed in SaaS. Release `0.1.0-dev.27` exposes
+Hotel-facing Device Setup is performed in SaaS. Release `0.1.0-dev.28` exposes
 door lock, Z-Wave extender, and device exclusion flows through outbound-polled
 commissioning commands while reusing this same commissioning service and
 worker. A newly included lock receives a bounded one-minute Home Assistant registration
@@ -78,6 +78,11 @@ readiness check ends the inclusion subscription without resetting the Serial
 API; Device Setup then resolves the registered device and presents naming.
 Progress-event delivery is durable but never blocks command polling, so a
 cancel request remains executable while telemetry acknowledgement is retried.
+After the friendly name is saved, a newly included lock must remain ready for
+20 seconds before temporary PIN verification starts. Set and clear operations
+are paced by two seconds, readiness loss prevents all test writes, and a late
+user-code service receives one additional stabilized retry without resetting
+the Z-Wave Serial API.
 Occupied slots are never written.
 
 The **Offline Cache** tab shows cache health and redacted operation details including the lock, action, UTC execution time, state, slot, command ID, opaque booking/credential references, dependencies, and whether encrypted PIN material is present. Cached PIN values, DSK values, security keys, signatures, tokens, test PINs, and guest identity never appear.

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0-dev.28
+
+- Wait for a newly included lock to remain ready through a 20-second settling
+  window before temporary PIN verification begins.
+- Pace temporary PIN set and cleanup operations, and retry a late user-code
+  service once without resetting the Z-Wave Serial API.
+
 ## 0.1.0-dev.27
 
 - Follow Home Assistant's classic-inclusion lifecycle by stopping inclusion
