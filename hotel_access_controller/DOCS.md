@@ -48,7 +48,7 @@ After reconnecting, unreported offline journal entries are uploaded before ordin
 
 Select **Open Web UI** on the add-on to open **Device Setup**. The administrator-only wizard commissions Z-Wave locks and extenders with explicit security and history choices, live progress, safe security prompts, capability checks, and friendly naming. Previously used or uncertain devices must complete exclusion before inclusion. A lock is uploaded to discovered-lock mapping only after verification and temporary-PIN cleanup succeed.
 
-Hotel-facing Device Setup is performed in SaaS. Release `0.1.0-dev.22` exposes
+Hotel-facing Device Setup is performed in SaaS. Release `0.1.0-dev.23` exposes
 door lock, Z-Wave extender, and device exclusion flows through outbound-polled
 commissioning commands while reusing this same commissioning service and
 worker. A newly included lock receives a bounded one-minute Home Assistant registration
@@ -66,13 +66,14 @@ Assistant, ingress, add-on settings, Controller credentials, or local network
 access.
 
 Priority-route retrieval is not part of lock inclusion, the complete device
-interview, User Code CC discovery, or user-code verification. If another
-Home Assistant or Z-Wave client starts an optional priority-route request and
-blocks the Serial API after the node is already interview-ready, Device Setup
-recovers the Serial API and continues with slot discovery. It does not repeat
-the completed interview or write occupied slots. If the interview event arrives
-before the route request blocks subsequent user-code calls, three consecutive
-transport failures trigger one recovery and one bounded verification retry.
+interview, User Code CC discovery, or user-code verification. Z-Wave JS UI
+automatically requests a priority route when a node becomes ready. Hotel Access
+does not request one. Device Setup checks the newly assigned node directly from
+Home Assistant controller state without waiting for device-registry registration.
+If the optional request blocks the Serial API, Device Setup recovers once and
+continues with slot discovery. If no interview progress is received for 60
+seconds and readiness cannot be queried, it recovers once and requires a fresh
+completed interview before slot verification. Occupied slots are never written.
 
 The **Offline Cache** tab shows cache health and redacted operation details including the lock, action, UTC execution time, state, slot, command ID, opaque booking/credential references, dependencies, and whether encrypted PIN material is present. Cached PIN values, DSK values, security keys, signatures, tokens, test PINs, and guest identity never appear.
 

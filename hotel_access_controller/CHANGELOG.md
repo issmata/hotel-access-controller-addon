@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0-dev.23
+
+- Detect newly included node readiness directly from Home Assistant controller state without waiting for device-registry registration.
+- Recover once after 60 seconds without interview progress when an optional Z-Wave JS UI priority-route request blocks the Serial API.
+- Require a fresh completed interview after silent-stall recovery before user-code slot verification.
+- Document that Z-Wave JS UI automatically requests a priority route when a node becomes ready; Hotel Access does not request one.
+
 ## 0.1.0-dev.22
 
 - Treat priority-route retrieval as optional and unrelated to lock inclusion, interview completion, and user-code verification.
