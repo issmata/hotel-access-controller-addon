@@ -1,5 +1,5 @@
 name: Hotel Access Controller Development
-version: 0.1.0-dev.26
+version: 0.1.0-dev.27
 slug: hotel_access_controller
 description: Development controller worker for Hotel Access SaaS and Home Assistant.
 url: https://github.com/issmata/hotel-access-controller-addon

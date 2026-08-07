@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0-dev.27
+
+- Follow Home Assistant's classic-inclusion lifecycle by stopping inclusion
+  after interview readiness and before the separate friendly-name step.
+- Allow up to 30 seconds for delayed Home Assistant device registration.
+- Retain the cancellation polling independence delivered in dev.26.
+
 ## 0.1.0-dev.26
 
 - Continue polling Controller commands when commissioning progress telemetry is temporarily unavailable.
