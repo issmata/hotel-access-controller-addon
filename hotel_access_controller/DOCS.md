@@ -48,7 +48,7 @@ After reconnecting, unreported offline journal entries are uploaded before ordin
 
 Select **Open Web UI** on the add-on to open **Device Setup**. The administrator-only wizard commissions Z-Wave locks and extenders with explicit security and history choices, live progress, safe security prompts, capability checks, and friendly naming. Previously used or uncertain devices must complete exclusion before inclusion. A lock is uploaded to discovered-lock mapping only after verification and temporary-PIN cleanup succeed.
 
-Hotel-facing Device Setup is performed in SaaS. Release `0.1.0-dev.23` exposes
+Hotel-facing Device Setup is performed in SaaS. Release `0.1.0-dev.24` exposes
 door lock, Z-Wave extender, and device exclusion flows through outbound-polled
 commissioning commands while reusing this same commissioning service and
 worker. A newly included lock receives a bounded one-minute Home Assistant registration
@@ -66,14 +66,14 @@ Assistant, ingress, add-on settings, Controller credentials, or local network
 access.
 
 Priority-route retrieval is not part of lock inclusion, the complete device
-interview, User Code CC discovery, or user-code verification. Z-Wave JS UI
-automatically requests a priority route when a node becomes ready. Hotel Access
-does not request one. Device Setup checks the newly assigned node directly from
-Home Assistant controller state without waiting for device-registry registration.
-If the optional request blocks the Serial API, Device Setup recovers once and
-continues with slot discovery. If no interview progress is received for 60
-seconds and readiness cannot be queried, it recovers once and requires a fresh
-completed interview before slot verification. Occupied slots are never written.
+interview, User Code CC discovery, or user-code verification. Z-Wave JS UI may
+log that it is retrieving a priority route after a node becomes ready without
+logging a matching success line. Hotel Access neither requests nor waits for
+that optional route. Device Setup accepts Home Assistant's registered-device or
+interview-completed state, verifies readiness by the registered device ID, and
+then advances to its own friendly naming step. The Z-Wave JS UI name-and-area
+dialog is a frontend convenience and is not a server-side inclusion response.
+Occupied slots are never written.
 
 The **Offline Cache** tab shows cache health and redacted operation details including the lock, action, UTC execution time, state, slot, command ID, opaque booking/credential references, dependencies, and whether encrypted PIN material is present. Cached PIN values, DSK values, security keys, signatures, tokens, test PINs, and guest identity never appear.
 

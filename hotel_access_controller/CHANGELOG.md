@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-dev.24
+
+- Read the Home Assistant device registry identifier from the documented `device registered` event field and advance a ready device to the Hotel Access naming step.
+- Apply the friendly device name before waiting for Home Assistant's lock entity and running user-code capability verification.
+- Use the registered device's in-memory readiness status, with a bounded device-registry fallback when the completion event is absent.
+- Stop treating the final `Retrieving priority route` log line as evidence that the Z-Wave Serial API is blocked; Z-Wave JS does not emit a matching success log line.
+- Stop inclusion or exclusion directly from the command process so cancellation completes without waiting for the commissioning worker event loop.
+
 ## 0.1.0-dev.23
 
 - Detect newly included node readiness directly from Home Assistant controller state without waiting for device-registry registration.
