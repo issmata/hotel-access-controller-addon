@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0-dev.26
+
+- Continue polling Controller commands when commissioning progress telemetry is temporarily unavailable.
+- Ensure interactive cancellation can be fetched and executed even while an earlier progress event is awaiting acknowledgement.
+- Include the ready-node-to-naming correction from dev.25.
+
 ## 0.1.0-dev.25
 
 - Use Home Assistant's controller-node readiness as the bounded fallback when registration and interview-completed events are delayed.
