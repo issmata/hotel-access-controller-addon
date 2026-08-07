@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.0-dev.32
+
+- Restore the Home Assistant device-registration boundary as the durable SaaS
+  naming step while the physical Z-Wave interview continues independently.
+- Persist registration, naming, interview, and finalization facts so either
+  naming/interview order and supported restart states converge safely.
+- Begin capability and temporary-PIN verification only after the device is
+  registered, its friendly name is applied, and its interview is complete.
+- Reconcile duplicate naming, repeated completion, cancellation, timeout, and
+  interrupted finalization without repeating inclusion, interview, PIN tests,
+  or discovered-lock execution.
+
 ## 0.1.0-dev.31
 
 - Keep Home Assistant's explicit `interview completed` event as the primary
