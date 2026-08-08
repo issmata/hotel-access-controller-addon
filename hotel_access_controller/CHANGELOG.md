@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-dev.33
+
+- Release the Hotel Access add-node subscription immediately after Home
+  Assistant registers the included device, without stopping physical inclusion.
+- Let the durable commissioning worker reconcile interview readiness after
+  naming and device registration in either order.
+- Cover name-first, readiness-first, restart, duplicate, and exactly-once
+  finalization behavior without repeating Z-Wave or temporary-PIN work.
+
 ## 0.1.0-dev.32
 
 - Restore the Home Assistant device-registration boundary as the durable SaaS
