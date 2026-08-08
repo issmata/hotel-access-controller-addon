@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0-dev.37
+
+- Use the provisioned runtime controller identity for discovered-lock uploads.
+- Fail locally when no authoritative controller identity is available instead
+  of submitting an invalid empty controller slug.
+
 ## 0.1.0-dev.36
 
 - Add application-level diagnostics for discovered-lock upload failures.
