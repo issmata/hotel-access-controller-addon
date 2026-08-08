@@ -14,6 +14,7 @@ concurrency:
   group: sync-controller-release
   cancel-in-progress: false
 
+# Keep release validation available when scheduled runs are delayed.
 permissions:
   contents: write
   packages: read
