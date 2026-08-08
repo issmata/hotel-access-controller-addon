@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0-dev.35
+
+- Complete lock commissioning after registration, naming, interview readiness,
+  and lock-entity verification without performing User Code operations.
+- Preserve discovered-lock capability metadata while keeping PIN testing out of
+  the commissioning critical path.
+
 ## 0.1.0-dev.33
 
 - Release the Hotel Access add-node subscription immediately after Home
