@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0-dev.36
+
+- Add application-level diagnostics for discovered-lock upload failures.
+- Retain sanitized request payloads, correlation IDs, response status/content
+  type/body, decoded validation errors, and persisted commissioning failure
+  state without changing commissioning behavior.
+
 ## 0.1.0-dev.35
 
 - Complete lock commissioning after registration, naming, interview readiness,
