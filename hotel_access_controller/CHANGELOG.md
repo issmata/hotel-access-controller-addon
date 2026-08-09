@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-dev.38
+
+- Import manufacturer, model, battery percentage, and Z-Wave device metadata
+  from Home Assistant during discovered-lock commissioning uploads.
+- Prefer hardware-signature Z-Wave identifiers while preserving node IDs and
+  Home Assistant device IDs as separate fields.
+- Keep metadata enrichment optional so missing registry data never blocks
+  successful lock commissioning.
+
 ## 0.1.0-dev.37
 
 - Use the provisioned runtime controller identity for discovered-lock uploads.
