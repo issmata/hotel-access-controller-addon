@@ -1,6 +1,6 @@
 # Hotel Access Controller Home Assistant Add-on
 
-Version `0.1.0-dev.41` aligns Zooz state inspection and NVM transfer with the current Z-Wave JS Server contract while preserving complete-but-selective Home Assistant recovery. Recovery is initiated and monitored from **AutoStay 360 > Access Control > Recovery**; hotel operators do not use Home Assistant backup or Z-Wave JS restore screens.
+Version `0.1.0-dev.42` completes the Shared recovery progress/result contract and retains the current Z-Wave JS Server protocol alignment. Recovery is initiated and monitored from **AutoStay 360 > Access Control > Recovery**; hotel operators do not use Home Assistant backup or Z-Wave JS restore screens.
 
 Public Home Assistant add-on repository for the Hotel Access Controller development agent.
 

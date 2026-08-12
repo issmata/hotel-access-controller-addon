@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.0-dev.42
+
+- Include the required UTC timestamp in recovery progress reports and align result metadata with Shared.
+
 ## 0.1.0-dev.41
 
 - Align Zooz state inspection and NVM transfer with the current Z-Wave JS Server protocol.
