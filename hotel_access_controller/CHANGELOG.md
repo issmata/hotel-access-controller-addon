@@ -6,17 +6,20 @@
 
 ## 0.1.0-dev.42
 
-- Include the required UTC timestamp in recovery progress reports and align result metadata with Shared.
+- Include the required UTC `reported_at` timestamp in every recovery progress report.
+- Align recovery-point result metadata with the finalized Shared schema.
 
 ## 0.1.0-dev.41
 
-- Align Zooz state inspection and NVM transfer with the current Z-Wave JS Server protocol.
-- Normalize physical adapter metadata and exclude all repository-prefixed AutoStay add-on identities from restore.
+- Align adapter discovery and NVM backup/restore payloads with the current Z-Wave JS Server protocol.
+- Normalize Zooz manufacturer/product identifiers, region, network identity, and node inventory from a bounded state snapshot.
+- Exclude repository-prefixed AutoStay add-on slugs from selective Home Assistant restore.
 
 ## 0.1.0-dev.40
 
-- Capture complete Home Assistant recovery artifacts and selectively restore them without overwriting the prepared AutoStay controller identity.
-- Verify restored Z-Wave network identity and fail closed when adapter metadata is unavailable.
+- Capture a complete Home Assistant recovery artifact and restore it selectively without replacing the prepared AutoStay controller identity.
+- Verify the post-restore Z-Wave network fingerprint and report unresolved node inventory separately.
+- Fail closed when physical adapter identity metadata is unavailable instead of assuming a Zooz adapter.
 
 ## 0.1.0-dev.39
 
