@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-dev.41
+
+- Align Zooz state inspection and NVM transfer with the current Z-Wave JS Server protocol.
+- Normalize physical adapter metadata and exclude all repository-prefixed AutoStay add-on identities from restore.
+
 ## 0.1.0-dev.40
 
 - Capture complete Home Assistant recovery artifacts and selectively restore them without overwriting the prepared AutoStay controller identity.
