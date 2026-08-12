@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.0-dev.43
+
+- Preserve bounded, redacted Home Assistant Supervisor backup failure details so SaaS recovery diagnostics identify actionable HAOS conditions.
+
 ## 0.1.0-dev.42
 
 - Include the required UTC timestamp in recovery progress reports and align result metadata with Shared.
