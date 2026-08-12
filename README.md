@@ -1,5 +1,7 @@
 # Hotel Access Controller Home Assistant Add-on
 
+Version `0.1.0-dev.39` adds the bounded Supervisor backup permission and publishes SaaS-managed controller and Zooz NVM recovery. Recovery is initiated and monitored from **AutoStay 360 > Access Control > Recovery**; hotel operators do not use Home Assistant backup or Z-Wave JS restore screens.
+
 Public Home Assistant add-on repository for the Hotel Access Controller development agent.
 
 ## Installation
