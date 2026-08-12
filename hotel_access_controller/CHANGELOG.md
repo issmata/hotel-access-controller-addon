@@ -1,10 +1,5 @@
 # Changelog
 
-## 0.1.0-dev.39
-
-- Add SaaS-managed controller and Zooz Z-Wave recovery points, compatibility preflight, restore progress, and idempotent recovery execution.
-- Grant the bounded Home Assistant Supervisor backup role required for recovery artifacts.
-
 ## 0.1.0-dev.38
 
 - Import manufacturer, model, battery percentage, and Z-Wave device metadata
