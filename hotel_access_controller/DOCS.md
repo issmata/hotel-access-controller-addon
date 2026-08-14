@@ -17,11 +17,23 @@ This development add-on runs the existing Hotel Access Controller worker continu
 
 The Home Assistant URL and token are supplied automatically through the Supervisor API proxy. Do not create a Home Assistant long-lived token for this add-on.
 
+Release `0.1.0-dev.45` closes an offline-cache recovery gap. If a signed
+manifest is persisted but its acknowledgement is interrupted, every later
+successful manifest poll retries the idempotent acknowledgement until SaaS
+accepts it. The Controller does not re-accept or re-execute cached operations.
+
 Home Assistant keeps saved options during add-on upgrades. Release
 `0.1.0-dev.44` migrates only the exact retired staging origin
 `https://staging.saas.cameosuites.ca` to `https://staging.autostay360.com`.
 All other options, including existing Controller IDs and tokens, are preserved;
 custom SaaS URLs are not changed.
+
+Release `0.1.0-dev.46` applies the same bounded migration to encrypted runtime
+credentials delivered to adopted Controllers. Only the exact retired staging
+controller-agent endpoint is replaced. Controller identity, permanent token,
+adoption state, polling settings, inventory, offline cache, commands, and
+Z-Wave state remain untouched; no reset, provisioning bundle, re-adoption, or
+manual credential entry is required.
 
 An add-on with empty Controller identity starts in `factory_unprovisioned`
 standby. Open **Controller** in ingress to import a signed provisioning bundle.

@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.0-dev.46
+
+- Migrate the exact retired staging controller-agent endpoint in encrypted adopted runtime credentials.
+- Preserve Controller identity, token, adoption, inventory, polling, offline, command, and Z-Wave state during migration.
+- Keep migrated-origin authentication failures visible without logging SaaS response bodies.
+
+## 0.1.0-dev.45
+
+- Retry acknowledgement of the current persisted offline manifest when SaaS reports no newer manifest.
+- Fail visibly when SaaS reports no manifest and the Controller has no persisted cache.
+- Keep acknowledgement failure diagnostics bounded to HTTP status and manifest revision.
+
 ## 0.1.0-dev.44
 
 - Move the active staging SaaS and bootstrap issuer to `https://staging.autostay360.com`.
