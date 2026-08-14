@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.0-dev.47
+
+- Include the latest persisted offline manifest revision and cache summary in the next SaaS check-in after synchronization.
+
 ## 0.1.0-dev.46
 
 - Migrate the exact retired staging controller-agent endpoint in encrypted adopted runtime credentials.

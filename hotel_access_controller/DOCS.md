@@ -28,12 +28,11 @@ Home Assistant keeps saved options during add-on upgrades. Release
 All other options, including existing Controller IDs and tokens, are preserved;
 custom SaaS URLs are not changed.
 
-Release `0.1.0-dev.46` applies the same bounded migration to encrypted runtime
-credentials delivered to adopted Controllers. Only the exact retired staging
-controller-agent endpoint is replaced. Controller identity, permanent token,
-adoption state, polling settings, inventory, offline cache, commands, and
-Z-Wave state remain untouched; no reset, provisioning bundle, re-adoption, or
-manual credential entry is required.
+Release `0.1.0-dev.47` reports the persisted offline manifest revision and
+cache summary in the next SaaS check-in after synchronization. This keeps the
+SaaS cache health record aligned with the Controller's acknowledged manifest;
+Controller identity, permanent token, adoption state, inventory, commands, and
+Z-Wave state remain untouched.
 
 An add-on with empty Controller identity starts in `factory_unprovisioned`
 standby. Open **Controller** in ingress to import a signed provisioning bundle.
