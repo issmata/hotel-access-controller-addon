@@ -4,7 +4,8 @@ This development add-on runs the existing Hotel Access Controller worker continu
 
 ## Configuration
 
-- `saas_base_url`: staging SaaS URL, without a trailing API path.
+- `saas_base_url`: staging SaaS URL, without a trailing API path. The active
+  staging origin is `https://staging.autostay360.com`.
 - `controller_id`: optional legacy Controller slug. Keep the existing value on
   an upgraded manually configured installation.
 - `controller_token`: optional legacy agent bearer token. Keep the existing
@@ -15,6 +16,12 @@ This development add-on runs the existing Hotel Access Controller worker continu
 - `log_level`: `debug`, `info`, `warning`, or `error`.
 
 The Home Assistant URL and token are supplied automatically through the Supervisor API proxy. Do not create a Home Assistant long-lived token for this add-on.
+
+Home Assistant keeps saved options during add-on upgrades. Release
+`0.1.0-dev.44` migrates only the exact retired staging origin
+`https://staging.saas.cameosuites.ca` to `https://staging.autostay360.com`.
+All other options, including existing Controller IDs and tokens, are preserved;
+custom SaaS URLs are not changed.
 
 An add-on with empty Controller identity starts in `factory_unprovisioned`
 standby. Open **Controller** in ingress to import a signed provisioning bundle.

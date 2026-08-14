@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0-dev.44
+
+- Move the active staging SaaS and bootstrap issuer to `https://staging.autostay360.com`.
+- Migrate only the retired staging default in existing Home Assistant options while preserving every customized option and legacy Controller credential.
+- Package and pin the reviewed new-origin staging provisioning trust artifact.
+
 ## 0.1.0-dev.43
 
 - Preserve bounded, redacted Home Assistant Supervisor backup failure details so SaaS recovery diagnostics identify actionable HAOS conditions.
