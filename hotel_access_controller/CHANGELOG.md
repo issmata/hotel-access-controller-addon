@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-dev.48
+
+- Replace legacy and delta-derived offline cache projections with an authoritative signed full manifest before acknowledgement.
+- Remove locally retained cancelled operations without changing Controller identity, Z-Wave state, commands, or execution journals.
+
 ## 0.1.0-dev.47
 
 - Include the latest persisted offline manifest revision and cache summary in the next SaaS check-in after synchronization.

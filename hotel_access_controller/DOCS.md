@@ -34,6 +34,12 @@ SaaS cache health record aligned with the Controller's acknowledged manifest;
 Controller identity, permanent token, adoption state, inventory, commands, and
 Z-Wave state remain untouched.
 
+Release `0.1.0-dev.48` performs a one-time authoritative full-manifest refresh
+for caches created before projection verification, and converges later delta
+updates through the same signed full snapshot before acknowledgement. This
+removes cancelled operations that survived locally while preserving offline
+journals and every physical Controller or Z-Wave setting.
+
 An add-on with empty Controller identity starts in `factory_unprovisioned`
 standby. Open **Controller** in ingress to import a signed provisioning bundle.
 It then reports `online_unclaimed` until SaaS adopts it and delivers permanent
