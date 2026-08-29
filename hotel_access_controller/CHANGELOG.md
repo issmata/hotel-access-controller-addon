@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.0-dev.49
+
+- Refuse to program a lock user-code slot unless an immediate preflight read confirms that the slot is vacant.
+
 ## 0.1.0-dev.48
 
 - Replace legacy and delta-derived offline cache projections with an authoritative signed full manifest before acknowledgement.
