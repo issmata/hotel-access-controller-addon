@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.0-dev.52
+
+- Extend the default lock-code removal verification window to 12 attempts with a two-second settling interval, while retaining expected-PIN checks on every retry.
+
 ## 0.1.0-dev.51
 
 - Verify a lock slot even when Home Assistant reports an HTTP error from the clear action, because Z-Wave may already have accepted the removal.
