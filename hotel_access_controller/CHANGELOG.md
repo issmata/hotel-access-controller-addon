@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-dev.50
+
+- Read and compare the current slot PIN before every removal attempt; refuse to clear a slot if its code changed or cannot be confirmed.
+- Treat an already empty slot as an idempotent successful removal without issuing a clear command.
+
 ## 0.1.0-dev.49
 
 - Refuse to program a lock user-code slot unless an immediate preflight read confirms that the slot is vacant.
