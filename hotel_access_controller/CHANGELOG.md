@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-dev.51
+
+- Verify a lock slot even when Home Assistant reports an HTTP error from the clear action, because Z-Wave may already have accepted the removal.
+- Retry the removal only when a fresh read confirms the same expected PIN is still present; continue to fail closed for changed or unreadable slots.
+
 ## 0.1.0-dev.50
 
 - Read and compare the current slot PIN before every removal attempt; refuse to clear a slot if its code changed or cannot be confirmed.
