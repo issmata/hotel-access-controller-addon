@@ -1,131 +1,167 @@
 # Hotel Access Controller Development
 
-This development add-on runs the existing Hotel Access Controller worker continuously. It polls Hotel Access SaaS for due commands and executes lock operations through Home Assistant and Z-Wave JS.
+Version `0.1.0-dev.53` is the Home Assistant OS add-on that connects a hotel
+Controller to Hotel Access SaaS. It runs continuously, checks in with SaaS,
+polls for due work, and uses Home Assistant and Z-Wave JS locally to carry out
+approved Controller operations.
+
+The Controller initiates all SaaS communication. SaaS does not open a network
+connection into the hotel.
+
+## What this add-on includes
+
+- **Controller identity and provisioning.** Existing manually configured
+  Controller IDs and tokens are retained on update. A new factory Controller
+  can be provisioned from a signed bundle in the ingress UI; permanent identity
+  is then delivered by SaaS.
+- **Hotel access execution.** The worker receives due SaaS commands, writes and
+  removes lock user codes through Home Assistant/Z-Wave JS, verifies the
+  affected lock slot, and reports the result to SaaS.
+- **Device Setup.** Home Assistant administrators can commission Z-Wave locks
+  and extenders, run exclusion where required, follow secure inclusion prompts,
+  name devices, and validate a newly included lock before it is sent to SaaS.
+- **Offline Access.** The Controller stores a signed, encrypted schedule of
+  already-authorized future lock operations. During a SaaS outage it executes
+  only those due operations, then reconciles its encrypted journal when SaaS is
+  reachable again.
+- **Controller recovery.** When enabled and initiated by SaaS, the existing
+  recovery workflow can create and restore supported Controller/Z-Wave recovery
+  points without replacing Controller identity.
+- **Controller Capability Manager.** The generic framework accepts only
+  revisioned, allowlisted desired state from SaaS and records secret-free local
+  reconciliation state. It currently observes the existing Z-Wave JS runtime;
+  see [Capability Manager](#capability-manager) below.
+- **Automatic self-updates.** The add-on keeps its own Supervisor automatic
+  updates enabled and reports its version/update state to SaaS.
+
+## What this add-on does not include
+
+- No LoRaWAN, BLE, Zigbee, HKT, Wi-Fi vendor, or other protocol driver.
+- No arbitrary add-on installer, repository URL, Supervisor path, shell
+  command, environment-variable pass-through, or secret-delivery mechanism.
+- No Docker socket, SSH, host PID access, host networking, full access, admin
+  Supervisor role, or unprotected mode.
+- No customer-facing Home Assistant workflow. Hotel staff use Hotel Access
+  SaaS; local ingress is for Home Assistant administrators and support.
+
+## Install or update
+
+1. In Home Assistant, open **Settings > Apps > App store**.
+2. Add the repository `https://github.com/issmata/hotel-access-controller-addon`
+   if it is not already present, then refresh the store.
+3. Install or update **Hotel Access Controller Development**.
+4. Keep the existing `controller_id` and `controller_token` on an upgraded,
+   already-claimed Controller. Do not reset the Controller or its Z-Wave
+   network during a routine upgrade.
+5. For a new factory Controller, leave both identity fields empty. Start the
+   add-on, open **Open Web UI > Controller**, and import the signed provisioning
+   bundle prepared in SaaS.
+6. Start the add-on and enable Home Assistant's **Start on boot** and
+   **Watchdog** controls for it.
+
+The add-on image is `amd64` only. Its current development image is
+`ghcr.io/issmata/hotel-access-controller-addon:0.1.0-dev.53`.
 
 ## Configuration
 
-- `saas_base_url`: staging SaaS URL, without a trailing API path. The active
-  staging origin is `https://staging.autostay360.com`.
-- `controller_id`: optional legacy Controller slug. Keep the existing value on
-  an upgraded manually configured installation.
-- `controller_token`: optional legacy agent bearer token. Keep the existing
-  value paired with `controller_id`; never copy a real token into an image.
-- `polling_interval_seconds`: queue polling cadence; defaults to 10 seconds.
-- `heartbeat_interval_seconds`: controller check-in cadence; defaults to 60 seconds.
-- `request_timeout_seconds`: outbound request timeout.
-- `log_level`: `debug`, `info`, `warning`, or `error`.
+| Option | Use |
+| --- | --- |
+| `saas_base_url` | SaaS HTTPS base URL, with no trailing API path. The current development default is `https://staging.autostay360.com`. |
+| `controller_id` | Existing legacy Controller slug. Leave blank for factory provisioning. |
+| `controller_token` | Existing legacy Controller bearer token. Keep it paired with its Controller ID and never place it in an image or support message. |
+| `polling_interval_seconds` | Due-command polling cadence; default `10`. |
+| `heartbeat_interval_seconds` | SaaS check-in cadence; default `60`. |
+| `request_timeout_seconds` | Outbound request timeout. |
+| `log_level` | `debug`, `info`, `warning`, or `error`; start with `info`. |
 
-The Home Assistant URL and token are supplied automatically through the Supervisor API proxy. Do not create a Home Assistant long-lived token for this add-on.
+Home Assistant supplies the Home Assistant and Supervisor credentials through
+its protected Supervisor proxy. Do not create a Home Assistant long-lived token
+for this add-on.
 
-Release `0.1.0-dev.45` closes an offline-cache recovery gap. If a signed
-manifest is persisted but its acknowledgement is interrupted, every later
-successful manifest poll retries the idempotent acknowledgement until SaaS
-accepts it. The Controller does not re-accept or re-execute cached operations.
+## Ingress: Open Web UI
 
-Home Assistant keeps saved options during add-on upgrades. Release
-`0.1.0-dev.44` migrates only the exact retired staging origin
-`https://staging.saas.cameosuites.ca` to `https://staging.autostay360.com`.
-All other options, including existing Controller IDs and tokens, are preserved;
-custom SaaS URLs are not changed.
+The administrator-only ingress UI contains three practical areas:
 
-Release `0.1.0-dev.47` reports the persisted offline manifest revision and
-cache summary in the next SaaS check-in after synchronization. This keeps the
-SaaS cache health record aligned with the Controller's acknowledged manifest;
-Controller identity, permanent token, adoption state, inventory, commands, and
-Z-Wave state remain untouched.
+- **Controller** shows provisioning and claim status. Use it on a factory unit
+  to import a signed provisioning bundle and confirm its trust state.
+- **Device Setup** is the local Z-Wave commissioning tool for locks and
+  extenders. It uses explicit security/history choices, requires exclusion for
+  previously used or uncertain hardware, and never overwrites occupied lock
+  user-code slots during validation.
+- **Offline Cache** shows secret-free cache health and operation summaries:
+  lock, action, UTC time, state, slot, command ID, opaque references, and
+  dependencies. PINs, DSKs, tokens, signatures, guest identity, and other
+  secrets are never displayed.
 
-Release `0.1.0-dev.48` performs a one-time authoritative full-manifest refresh
-for caches created before projection verification, and converges later delta
-updates through the same signed full snapshot before acknowledgement. This
-removes cancelled operations that survived locally while preserving offline
-journals and every physical Controller or Z-Wave setting.
+Hotel-facing commissioning, normal lock access, scheduling, and access-policy
+decisions remain in SaaS. The Controller does not decide whether a future
+booking operation is allowed or due.
 
-An add-on with empty Controller identity starts in `factory_unprovisioned`
-standby. Open **Controller** in ingress to import a signed provisioning bundle.
-It then reports `online_unclaimed` until SaaS adopts it and delivers permanent
-credentials, after which it reports `claimed`. SaaS is the only component that
-creates the permanent token. Bootstrap state and credentials are encrypted
-under `/data/bootstrap` and survive restart. Identity reset does not reset the
-Z-Wave network.
+## Capability Manager
 
-The official staging provisioning trust is packaged read-only at
-`/app/config/trusted-provisioning-jwks.json`. Home Assistant has no editable
-JWKS option. Ingress reports whether that artifact is valid and provides the
-visual sequence from bundle selection through signature validation, appliance
-identity generation, public-key registration, phone-home, and
-`online_unclaimed`. Unknown keys, private material, wrong environments, and
-unsupported cryptographic profiles are rejected without displaying secrets.
+`0.1.0-dev.53` adds `controller.capability_manager.v1` to normal Controller
+check-in metadata. SaaS can then send the existing command transport a bounded
+`reconcile_controller_capabilities` desired-state manifest. The Controller
+validates its revision and logical capability IDs, stores only secret-free
+state under `/data/capabilities`, re-observes Supervisor state after restart,
+and returns a bounded operational result.
 
-## Automatic updates
+Today, the only production capability is **Z-Wave**. The add-on treats the
+existing `core_zwave_js` runtime as external: it may observe its operational
+state, but it does not install, configure, update, restart, stop, or remove it.
+This preserves the existing Controller identity, Z-Wave network, lock access,
+Device Setup, and Cameo behavior.
 
-Starting with `0.1.0-dev.3`, the add-on uses the Supervisor's self-scoped API to enable automatic updates for itself at startup. It requests the default Supervisor role, cannot manage other add-ons, and does not receive host, Docker, or store-management access. Installed version, latest known version, update availability, and automatic-update state are sent to SaaS as secret-free controller check-in telemetry.
+The generic framework has no approved production runtime to install yet. Its
+Supervisor-managed fixture is test-only. A future protocol runtime requires a
+separate approved capability package, hardware integration, and rollout; it is
+not enabled by adding an add-on option.
 
-An installation older than `0.1.0-dev.3` cannot enable this behavior retroactively. Update it to `0.1.0-dev.3` once through the Home Assistant update action or an operator-assisted installation. Later catalog releases are installed by Supervisor automatically after Home Assistant discovers them. SaaS raises an alert if an update is pending or automatic updates become disabled.
+The add-on uses `hassio_role: manager` solely for the framework's fixed,
+catalog-allowlisted Supervisor operations. It does not request higher
+privileges. The exact cross-add-on operations remain subject to validation on a
+supported HAOS Controller; a `403` must be recorded and investigated rather
+than solved by elevating to `admin`.
 
-## Operation
+## Updates, persistence, and security
 
-The add-on starts `php /app/bin/service` and the independent `php /app/bin/commissioning-worker`. Generated configuration, command result cache, pending acknowledgements, service lock, diagnostics state, redacted commissioning state, the encrypted offline manifest, and its encrypted execution journal are stored under `/data` and survive add-on and HAOS restarts.
+Home Assistant retains add-on options on update. The Controller keeps its
+generated configuration, encrypted bootstrap identity, command/idempotency
+cache, pending acknowledgements, offline schedule and journal, commissioning
+state, recovery state, Capability Manager state, and diagnostics under `/data`.
+It does not store its state in a local database.
 
-The offline schedule follows the PMS future-booking window configured in SaaS. It is not a separate add-on option. While SaaS is unreachable, the Controller executes only signed operations already authorized in that manifest at their explicit UTC times. It does not store complete bookings or guest identity, contact, payment, or photo-ID data.
+At startup, the add-on enables Supervisor automatic updates for itself and
+reports installed/latest versions, update availability, and automatic-update
+state to SaaS. The Capability Manager does not take over Z-Wave JS updates.
 
-After reconnecting, unreported offline journal entries are uploaded before ordinary command polling. SaaS acknowledges reconciliation and explicitly supersedes stale local operations.
+The add-on remains in protected mode. Its native health check uses `/health`;
+secret-free runtime diagnostics are available at `/diagnostics` inside the
+container. Supervisor tokens, Controller tokens, lock PINs, guest data,
+protocol secrets, raw Supervisor responses, and raw hardware inventory are not
+included in SaaS telemetry or Capability Manager state.
 
-Select **Open Web UI** on the add-on to open **Device Setup**. The administrator-only wizard commissions Z-Wave locks and extenders with explicit security and history choices, live progress, safe security prompts, capability checks, and friendly naming. Previously used or uncertain devices must complete exclusion before inclusion. A lock is uploaded to discovered-lock mapping only after verification and temporary-PIN cleanup succeed.
+## Verify a healthy installation
 
-Hotel-facing Device Setup is performed in SaaS. Release `0.1.0-dev.31` exposes
-door lock, Z-Wave extender, and device exclusion flows through outbound-polled
-commissioning commands while reusing this same commissioning service and
-worker. The naming form appears only after Home Assistant emits `interview
-completed`; an earlier device-registry event does not end inclusion. A newly
-included node may use a bounded fallback when Home Assistant omits that event,
-but only after its matching device-registry record exists and it reports ready
-status three times consecutively. The completion source is retained in local
-diagnostics. A newly included lock receives a bounded one-minute Home Assistant
-registration grace period, and a completed lock interview is not repeated
-solely because its entity has not appeared yet. Lock verification does not use
-priority-route retrieval as its completion gate; routing verification remains specific to
-extenders. Before inclusion, the Controller configures the internal Z-Wave JS
-driver to query existing user codes during the complete interview instead of
-clearing them. It then scans occupied slots without writing them and reserves
-only the first verified empty slot for its temporary PIN test. Extender progress
-reports plain-language routing verification and only
-a bounded opaque completion identity. The local Device Setup page remains an
-administrator-only factory and support tool; hotel users never need Home
-Assistant, ingress, add-on settings, Controller credentials, or local network
-access.
+After installation or update, confirm:
 
-Priority-route retrieval is not part of lock inclusion, the complete device
-interview, User Code CC discovery, or user-code verification. Z-Wave JS UI may
-log that it is retrieving a priority route after a node becomes ready without
-logging a matching success line. Hotel Access neither requests nor waits for
-that optional route. The completed interview, or the bounded registered-and-
-stably-ready fallback when Home Assistant omits its completion event, ends the
-blocking inclusion subscription and publishes the naming step in SaaS. The
-name is returned through the authenticated command queue and applied by the
-existing Controller naming/finalization engine before readiness and PIN
-verification.
-The Z-Wave JS UI name-and-area dialog is a frontend convenience and is not a
-server-side inclusion response. A ready node alone never opens naming or resets
-the Serial API. Progress and result delivery are durable but never block command
-polling, so naming and cancellation remain executable while acknowledgements
-are retried.
-Occupied slots are never written.
+1. The add-on log shows successful SaaS check-ins, Home Assistant reachability,
+   and command polling.
+2. The Controller remains claimed and online in SaaS.
+3. Automatic updates remain enabled for the Controller add-on.
+4. Existing Z-Wave control, lock discovery, and PIN create/read/remove work
+   normally.
+5. Offline Cache remains healthy and the Z-Wave network is unchanged.
 
-After the friendly name is saved, a newly included lock must remain ready for
-20 seconds before temporary PIN verification starts. Set and clear operations
-are paced by two seconds, readiness loss prevents all test writes, and a late
-user-code service receives one additional stabilized retry without resetting
-the Z-Wave Serial API.
+For a `0.1.0-dev.53` canary, also verify that unknown capability IDs are
+rejected, a no-op desired state is idempotent, and a restart during
+reconciliation does not duplicate a mutation. Do not proceed to a fleet rollout
+until the supported-HAOS `manager`-role checks and Cameo regression are complete.
 
-The **Offline Cache** tab shows cache health and redacted operation details including the lock, action, UTC execution time, state, slot, command ID, opaque booking/credential references, dependencies, and whether encrypted PIN material is present. Cached PIN values, DSK values, security keys, signatures, tokens, test PINs, and guest identity never appear.
+## Support information
 
-The Controller, Device Setup, and Offline Cache tabs remain available from every
-ingress page and are rooted beneath Home Assistant's active ingress URL.
-
-The image's native Docker health check uses the minimal internal `/health` endpoint. Secret-free JSON diagnostics remain available separately at `/diagnostics` inside the container.
-
-Home Assistant's default automatic boot policy is used. The obsolete manifest
-`watchdog` setting is intentionally omitted because the image supplies its own
-native Docker `HEALTHCHECK` against `/health`.
-
-Scheduling remains authoritative in SaaS. Future operations are not returned by the due-command endpoint until their `available_at` time.
+Use **Open Web UI** and the add-on log first. The `/diagnostics` response
+contains secret-free connectivity, polling, check-in, pending-result, last
+command, offline-cache, bootstrap, and application-version information.
+Never attach Controller tokens, Supervisor tokens, PINs, DSKs, signed bundles,
+or unredacted logs to a support request.
