@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0-dev.53
+
+- Add the generic Controller Capability Manager inside the existing worker, with strict desired-state manifests, allowlisted Supervisor operations, restart-safe reconciliation, and secret-free `/data/capabilities` state.
+- Observe the existing Z-Wave JS runtime without taking over its installation or lifecycle; no LoRaWAN, BLE, Zigbee, or vendor-specific package is included.
+- Raise only the Supervisor API role from `backup` to `manager` while retaining protected mode, existing automatic updates, and all existing Controller behavior.
+
 ## 0.1.0-dev.52
 
 - Extend the default lock-code removal verification window to 12 attempts with a two-second settling interval, while retaining expected-PIN checks on every retry.
