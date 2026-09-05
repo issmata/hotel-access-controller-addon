@@ -10,9 +10,11 @@ provisioning-bundle import, Device Setup for Z-Wave locks and extenders, and
 Offline Cache diagnostics. Existing manually configured installations remain
 supported; factory installations can start with no Controller ID or token.
 
-Release `0.1.0-dev.53` also includes the generic Controller Capability Manager
-inside the same worker. It uses a packaged allowlist and `hassio_role: manager`
-without Docker access, full access, an admin role, or unprotected mode. Existing
-Z-Wave JS is observed only; no additional protocol runtime is bundled.
+Release `0.1.0-dev.54` retains the generic Controller Capability Manager and
+adds guarded lock-code write recovery: an ambiguous transport failure or a
+confirmed-empty read-back can replay only the same slot and PIN once. It uses a
+packaged allowlist and `hassio_role: manager` without Docker access, full
+access, an admin role, or unprotected mode. Existing Z-Wave JS is observed
+only; no additional protocol runtime is bundled.
 
 See `DOCS.md` for configuration and installation instructions.

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0-dev.54
+
+- Recover a dropped Supervisor/Core lock-code request safely: read the exact slot before a single replay, skip replay when it is occupied, and leave unknown state for the SaaS retry policy.
+- When SaaS requests two write attempts, replay the exact slot and PIN once only after a successful write has a confirmed-empty Z-Wave read-back. A service HTTP response alone never marks a credential active.
+- Preserve sanitized stream-failure diagnostics without logging PINs or tokens. No Controller identity, Supervisor permission, or Z-Wave network reset is required for this update.
+
 ## 0.1.0-dev.53
 
 - Add the generic Controller Capability Manager inside the existing worker, with strict desired-state manifests, allowlisted Supervisor operations, restart-safe reconciliation, and secret-free `/data/capabilities` state.

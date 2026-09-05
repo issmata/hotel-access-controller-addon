@@ -1,6 +1,6 @@
 # Hotel Access Controller Development
 
-Version `0.1.0-dev.53` is the Home Assistant OS add-on that connects a hotel
+Version `0.1.0-dev.54` is the Home Assistant OS add-on that connects a hotel
 Controller to Hotel Access SaaS. It runs continuously, checks in with SaaS,
 polls for due work, and uses Home Assistant and Z-Wave JS locally to carry out
 approved Controller operations.
@@ -60,7 +60,7 @@ connection into the hotel.
    **Watchdog** controls for it.
 
 The add-on image is `amd64` only. Its current development image is
-`ghcr.io/issmata/hotel-access-controller-addon:0.1.0-dev.53`.
+`ghcr.io/issmata/hotel-access-controller-addon:0.1.0-dev.54`.
 
 ## Configuration
 
@@ -99,7 +99,7 @@ booking operation is allowed or due.
 
 ## Capability Manager
 
-`0.1.0-dev.53` adds `controller.capability_manager.v1` to normal Controller
+`0.1.0-dev.54` retains `controller.capability_manager.v1` in normal Controller
 check-in metadata. SaaS can then send the existing command transport a bounded
 `reconcile_controller_capabilities` desired-state manifest. The Controller
 validates its revision and logical capability IDs, stores only secret-free
@@ -122,6 +122,13 @@ catalog-allowlisted Supervisor operations. It does not request higher
 privileges. The exact cross-add-on operations remain subject to validation on a
 supported HAOS Controller; a `403` must be recorded and investigated rather
 than solved by elevating to `admin`.
+
+For lock-code provisioning, the add-on verifies every write with an exact-slot
+read. If SaaS requests a second write attempt, the add-on replays the same slot
+and PIN only after that read still reports the slot empty. An ambiguous
+Supervisor/Core request is also checked before replaying. It never overwrites
+an occupied or unreadable slot, and an HTTP success alone never marks a PIN
+active.
 
 ## Updates, persistence, and security
 
@@ -153,10 +160,11 @@ After installation or update, confirm:
    normally.
 5. Offline Cache remains healthy and the Z-Wave network is unchanged.
 
-For a `0.1.0-dev.53` canary, also verify that unknown capability IDs are
-rejected, a no-op desired state is idempotent, and a restart during
-reconciliation does not duplicate a mutation. Do not proceed to a fleet rollout
-until the supported-HAOS `manager`-role checks and Cameo regression are complete.
+For a `0.1.0-dev.54` canary, also verify that unknown capability IDs are
+rejected, a no-op desired state is idempotent, a restart during reconciliation
+does not duplicate a mutation, and a set PIN is reported active only after an
+exact-slot read-back. Do not proceed to a fleet rollout until the supported-HAOS
+`manager`-role checks and Cameo regression are complete.
 
 ## Support information
 
