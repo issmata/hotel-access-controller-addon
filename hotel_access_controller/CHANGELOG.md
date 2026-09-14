@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0-dev.55
+
+- Projects the HAOS-confirmed negotiated Z-Wave security mode into ongoing SaaS
+  commissioning progress without exposing security material or bypassing the
+  separate interview and capability-readiness gates.
+
 ## 0.1.0-dev.54
 
 - Recover a dropped Supervisor/Core lock-code request safely: read the exact slot before a single replay, skip replay when it is occupied, and leave unknown state for the SaaS retry policy.

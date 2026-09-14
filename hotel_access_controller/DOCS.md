@@ -1,6 +1,6 @@
 # Hotel Access Controller Development
 
-Version `0.1.0-dev.54` is the Home Assistant OS add-on that connects a hotel
+Version `0.1.0-dev.55` is the Home Assistant OS add-on that connects a hotel
 Controller to Hotel Access SaaS. It runs continuously, checks in with SaaS,
 polls for due work, and uses Home Assistant and Z-Wave JS locally to carry out
 approved Controller operations.
@@ -60,7 +60,7 @@ connection into the hotel.
    **Watchdog** controls for it.
 
 The add-on image is `amd64` only. Its current development image is
-`ghcr.io/issmata/hotel-access-controller-addon:0.1.0-dev.54`.
+`ghcr.io/issmata/hotel-access-controller-addon:0.1.0-dev.55`.
 
 ## Configuration
 
@@ -99,7 +99,7 @@ booking operation is allowed or due.
 
 ## Capability Manager
 
-`0.1.0-dev.54` retains `controller.capability_manager.v1` in normal Controller
+`0.1.0-dev.55` retains `controller.capability_manager.v1` in normal Controller
 check-in metadata. SaaS can then send the existing command transport a bounded
 `reconcile_controller_capabilities` desired-state manifest. The Controller
 validates its revision and logical capability IDs, stores only secret-free
@@ -160,7 +160,7 @@ After installation or update, confirm:
    normally.
 5. Offline Cache remains healthy and the Z-Wave network is unchanged.
 
-For a `0.1.0-dev.54` canary, also verify that unknown capability IDs are
+For a `0.1.0-dev.55` canary, also verify that unknown capability IDs are
 rejected, a no-op desired state is idempotent, a restart during reconciliation
 does not duplicate a mutation, and a set PIN is reported active only after an
 exact-slot read-back. Do not proceed to a fleet rollout until the supported-HAOS
