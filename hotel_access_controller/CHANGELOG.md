@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.0-dev.56
+
+- Add capability-gated, read-only import of existing Z-Wave extenders and
+  high-confidence local network infrastructure through a versioned sanitized
+  observation contract.
+- Add an administrator import panel, bounded redacted failure states, durable
+  local status, and idempotent SaaS command delivery without changing legacy
+  lock discovery or commissioning behavior.
+- Reuse the established opaque extender identity and never expose node IDs,
+  Home Assistant IDs, addresses, credentials, topology, or raw diagnostics.
+
 ## 0.1.0-dev.55
 
 - Projects the HAOS-confirmed negotiated Z-Wave security mode into ongoing SaaS
