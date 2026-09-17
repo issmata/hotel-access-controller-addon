@@ -10,7 +10,8 @@ provisioning-bundle import, Device Setup for Z-Wave locks and extenders, and
 Offline Cache diagnostics. Existing manually configured installations remain
 supported; factory installations can start with no Controller ID or token.
 
-Release `0.1.0-dev.56` projects HAOS-confirmed security state into the SaaS
+Release `0.1.0-dev.57` corrects the authenticated inventory-upload result path
+and projects HAOS-confirmed security state into the SaaS
 commissioning view while retaining the generic Controller Capability Manager and
 adds guarded lock-code write recovery: an ambiguous transport failure or a
 confirmed-empty read-back can replay only the same slot and PIN once. It uses a

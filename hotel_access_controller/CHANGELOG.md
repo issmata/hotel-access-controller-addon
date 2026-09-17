@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-dev.57
+
+- Include the authenticated Controller slug in every infrastructure-inventory
+  observation as required by the SaaS contract.
+- Fail the queued import command when SaaS rejects or cannot accept the upload;
+  a partial local scan is reported as completed only after its evidence reaches
+  SaaS.
+
 ## 0.1.0-dev.56
 
 - Add capability-gated, read-only import of existing Z-Wave extenders and
