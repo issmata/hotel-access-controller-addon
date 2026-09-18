@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0-dev.58
+
+- Treat a matching PIN already present in an occupied lock slot as a verified,
+  idempotent `set_lock_code` result without issuing another physical write.
+- Report the observed physical slot so SaaS can repair assignments after an
+  ambiguous Home Assistant transport failure.
+
 ## 0.1.0-dev.57
 
 - Include the authenticated Controller slug in every infrastructure-inventory
